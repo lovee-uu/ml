@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Aloulty">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>For Ela, my Aloulty</title>
+<style>
+:root{--g1:#ffe3ec;--g2:#fff0d9;--g3:#e6dcff;--ink:#4a2c32;--soft:#7d5f66;--paper:#fffaf6;--accent:#e0476f;--card:#ffffffcc;--line:#f0d0d8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#2a1220;--g2:#1c1730;--g3:#12202b;--ink:#f6e3e6;--soft:#c0a2a8;--paper:#2b1c25;--accent:#ff7a9c;--card:#2b1c25cc;--line:#523545}}
+:root[data-theme="dark"]{--g1:#2a1220;--g2:#1c1730;--g3:#12202b;--ink:#f6e3e6;--soft:#c0a2a8;--paper:#2b1c25;--accent:#ff7a9c;--card:#2b1c25cc;--line:#523545}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh;background:linear-gradient(120deg,var(--g1),var(--g2),var(--g3),var(--g1));background-size:300% 300%;animation:bg 18s ease infinite}
+@keyframes bg{50%{background-position:100% 50%}}
+#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:28px 20px 70px}
+h2{font-weight:normal;text-align:center;font-size:24px;margin:40px 0 16px}
+.hint{text-align:center;color:var(--soft);font-style:italic;margin:14px 0}
+#envWrap{display:flex;flex-direction:column;align-items:center;margin-top:12vh}
+.env{position:relative;width:270px;height:178px;background:linear-gradient(135deg,#ff6b8f,#ff9a6b);border-radius:10px;cursor:pointer;box-shadow:0 12px 34px rgba(224,71,111,.35);animation:float 3s ease-in-out infinite;border:0;padding:0}
+.flap{position:absolute;top:0;left:0;width:100%;height:100px;background:linear-gradient(#ff7a9a,#ff5d85);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s}
+.heart{position:absolute;left:50%;top:80px;transform:translateX(-50%);font-size:36px;z-index:2}
+.env.open .flap{transform:rotateX(180deg)}
+.env.open{animation:none;opacity:0;transform:translateY(40px) scale(.9);transition:all .8s .5s}
+@keyframes float{50%{transform:translateY(-9px) rotate(-1.5deg)}}
+#letter{display:none;background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:12px;padding:28px 24px;box-shadow:0 10px 30px rgba(224,71,111,.18);line-height:1.65;font-size:clamp(23px,6.4vw,30px);white-space:pre-wrap;min-height:280px}
+#letter.show{display:block;animation:rise .8s}
+.sig{font-style:italic;color:var(--accent)}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+#more{display:none}#more.show{display:block;animation:rise 1s}
+.ms{display:flex;gap:12px}
+.mile{flex:1;border-radius:16px;padding:16px 10px;text-align:center;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.mile:nth-child(1){background:linear-gradient(135deg,#ff5d8f,#ff9a8b)}
+.mile:nth-child(2){background:linear-gradient(135deg,#8b5cf6,#ec7fd0)}
+.mile b{display:block;font-size:34px;font-weight:normal}
+.mile small{display:block;opacity:.95;line-height:1.3}
+.mile i{display:block;font-size:12px;opacity:.85;margin-top:6px}
+.msg{min-height:100px;background:var(--card);backdrop-filter:blur(8px);border:2px solid var(--c,var(--accent));border-radius:16px;padding:20px;margin-bottom:14px;font-size:18px;line-height:1.5;text-align:center;display:flex;align-items:center;justify-content:center;transition:border-color .4s}
+.btn{display:block;width:100%;background:linear-gradient(90deg,#ff5d8f,#ff9a4d);color:#fff;border:0;border-radius:16px;padding:16px;font:inherit;font-size:17px;cursor:pointer;box-shadow:0 8px 20px rgba(255,93,143,.3)}
+.btn:active{transform:scale(.97)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chip{background:var(--card);color:var(--ink);border:2px solid var(--c);border-radius:999px;padding:10px 18px;font-size:19px;cursor:pointer;font-family:"Geeza Pro","Segoe UI",Tahoma,serif}
+.chip.on{background:var(--c);color:#fff}
+#word{min-height:54px;text-align:center;margin-top:14px;color:var(--soft);font-size:17px;line-height:1.4}
+#word b{color:var(--accent);font-weight:normal;font-size:20px}
+.open-card{width:100%;text-align:left;background:var(--card);backdrop-filter:blur(8px);color:var(--ink);border:1px solid var(--line);border-left:7px solid var(--c);border-radius:14px;padding:16px 18px;margin-bottom:12px;font:inherit;font-size:17px;cursor:pointer}
+.open-card .body{display:none;margin-top:10px;color:var(--soft);line-height:1.55}
+.open-card.on .body{display:block;animation:rise .5s}
+.open-card b{color:var(--c);font-weight:normal}
+.foot{text-align:center;color:var(--soft);margin-top:40px;font-style:italic;line-height:1.6}
+#gate{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:12vh}#gate h1{font-weight:normal;font-size:30px;margin:6px 0 8px}#gate p{color:var(--soft);font-size:18px;line-height:1.5;margin:0 0 20px}#dt{font:inherit;font-size:22px;padding:14px 18px;border-radius:14px;border:2px solid var(--accent);background:var(--card);color:var(--ink);width:100%;max-width:300px;text-align:center;margin-bottom:14px}#err{min-height:48px;color:var(--accent);margin-top:12px;line-height:1.4}.shake{animation:shake .4s}@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.song{background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;border-radius:18px;padding:22px 18px;text-align:center;box-shadow:0 10px 26px rgba(139,92,246,.35)}.song .t{font-size:26px;margin-top:4px}.song .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}.song a{background:#ffffff33;color:#fff;text-decoration:none;border-radius:999px;padding:10px 18px;font-size:17px}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<main>
+  <section id="gate">
+    <div style="font-size:54px">🔐</div>
+    <h1>Only you can open this</h1>
+    <p>Enter the day we fell in love, Aloulty</p>
+    <input type="date" id="dt" aria-label="Date we fell in love">
+    <button class="btn" id="go" style="max-width:300px">Unlock 💌</button>
+    <div id="err"></div>
+  </section>
+
+  <section id="envWrap" style="display:none">
+    <button class="env" id="env" aria-label="Open the letter"><div class="flap"></div><div class="heart">💌</div></button>
+    <p class="hint">Tap the envelope, Aloulty</p>
+  </section>
+
+  <section id="letter" aria-live="polite"></section>
+
+  <section id="more">
+    <h2>Our little timeline</h2>
+    <div class="ms">
+      <div class="mile"><b id="d1">0</b><small>days since we fell in love</small><i>25 / 7</i></div>
+      <div class="mile"><b id="d2">0</b><small>days since our first kiss</small><i>6 / 11</i></div>
+    </div>
+
+    <h2>A little fuel for your days</h2>
+    <div class="msg" id="msg">Tap the button when you need a push, Ela.</div>
+    <button class="btn" id="boostBtn">Give me a boost ✨</button>
+
+    
+
+    <h2>Open when…</h2>
+    <button class="open-card" style="--c:#e0476f"><b>…you doubt yourself</b><div class="body">Ma tkhafch, ya omri. You’ve already done things you once thought you couldn’t. Doubt is just your mind being cautious. Take one small step today and let the doubt catch up later.</div></button>
+    <button class="open-card" style="--c:#8b5cf6"><b>…you’re tired</b><div class="body">Resting is part of the work, not a break from it. Drink some water, breathe slowly, and be as kind to yourself as you are to everyone else. Rabbi m3ak, ya rouhi.</div></button>
+    <button class="open-card" style="--c:#d946ef"><b>…you feel insecure</b><div class="body">Come here, ya rouhi. Look at me: I love your waist, I love your double chin, I love every inch of you. Nobody looks at you the way I do, and to me you are the best view in the world. You are beautiful, Ela, exactly as you are. Nhebik barcha.</div></button>
+    <button class="open-card" style="--c:#0ea5a4"><b>…you miss me</b><div class="body">Close your eyes and think of the 6th of November. I’m thinking of it too, and I’m just a message away.</div></button>
+    <button class="open-card" style="--c:#f59e0b"><b>…something went wrong</b><div class="body">One bad day doesn’t cancel the progress you’ve made. Learn the one thing it teaches you, let go of the rest, and start fresh tomorrow. Nfakher bik either way.</div></button>
+    <button class="open-card" style="--c:#ec4899"><b>…you did something great</b><div class="body">Yaatik essaha, Aloulty! Stop and celebrate it properly. You earned it, and I’m cheering the loudest. 🎉</div></button>
+
+    <p class="foot">I fall in love with you again every day, 25/7 and always. 🤍<br>Ela ♥ Aloulty</p>
+  </section>
+</main>
+
+<script>
+const NAME = "Ela", NICK = "Aloulty", FROM = "Yours, always";
+const OLDLETTER = "Dear " + NAME + ", my " + NICK + ",\n\nI wanted to give you something that doesn’t get buried in a chat, so I made you this little corner of the internet, just for you.\n\nOn 25/7 I fell in love with you, and every day since I fall a little more. Then on the 6th of this month came our first kiss, and honestly my heart hasn’t calmed down since.\n\nYou make my days lighter without even trying. The way you laugh, the way you care, the way you keep going when it’s hard: I notice all of it, and I admire it more than I say out loud.\n\nNhebik barcha, ya omri. Ya rouhi, ya galbi. Whenever you can’t see how far you’ve come, I’ll be here to remind you.\n\nNever forget how loved you are.";
+const LETTER = "Ela,\nmy Aloulty,\n\nI love you. I wanted to say it in letters so big you can’t pretend you didn’t hear it.\n\nOn 25/7 I fell in love with you, and every single day since, I fall again. On the 6th of this month I finally kissed you, and my heart still hasn’t calmed down.\n\nI love your short curls, and I love you just as much when you pull them back. I love your dark brown eyes that I could get lost in. And your face... your whole face is just kissable, and I plan to prove it every day.\n\nI know there are parts of yourself you feel shy about, your waist and your double chin. Listen to me, ya omri: I love them. They are part of you, and everything that is you is exactly what I fell for. You are beautiful to me, not in spite of those things, but with them.\n\nNhebik barcha, ya rouhi. Ya galbi. Whenever you can’t see how far you’ve come, or how lovely you are, I’ll be here to remind you.\n\nNever forget how loved you are.";
+const BOOSTS = [
+  "Ma tkhafch, ya omri. You’re stronger than you think.",
+  "Small steps still count. Keep going, Aloulty.",
+  "Nfakher bik barcha, even when nobody else sees your effort.",
+  "You don’t have to be perfect to be amazing, Ela.",
+  "Rabbi m3ak, and so am I. Always.",
+  "Hard things are hard for everyone. You’re doing it anyway, and that’s courage.",
+  "Your dreams are worth the patience. Trust the process, ya rouhi.",
+  "Be gentle with yourself today. You’re growing.",
+  "Yaatik essaha for everything you do. Today is a good day to be proud.",
+  "Whatever happens today, tawa w dima, I’m on your side."
+];
+const WORDS = [
+  ["نحبّك برشا","Nhebik barcha","I love you so much"],
+  ["يا عمري","Ya omri","my life, my darling"],
+  ["يا روحي","Ya rouhi","my soul"],
+  ["يا قلبي","Ya galbi","my heart"],
+  ["يعطيك الصحة","Yaatik essaha","well done, bless you"],
+  ["ما تخافش","Ma tkhafch","don’t be afraid"],
+  ["ربّي معاك","Rabbi m3ak","God is with you"],
+  ["برشا","Barcha","a lot"]
+];
+const COL = ["#ff5d8f","#ffb347","#a78bfa","#34d3c0","#ffd166","#ff8fab","#60a5fa"];
+const $ = id => document.getElementById(id);
+const rnd = (a,b) => a + Math.random()*(b-a);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* particles */
+const cv = $("bg"), cx = cv.getContext("2d"), P = [];
+let W, H, D = Math.min(devicePixelRatio || 1, 2);
+function size(){ W = innerWidth; H = innerHeight; cv.width = W*D; cv.height = H*D; cx.setTransform(D,0,0,D,0,0); }
+addEventListener("resize", size); size();
+const CH = ["♥","♥","✦","✿","♡"];
+function add(x,y,vx,vy,life,s,g){ P.push({x,y,vx,vy,l:life,m:life,s,g,ch:CH[Math.floor(Math.random()*CH.length)],c:COL[Math.floor(Math.random()*COL.length)],r:rnd(-.02,.02),a:0}); }
+function burst(x,y,n){ for(let i=0;i<n;i++){ const a=rnd(0,6.283), v=rnd(1.5,5.5); add(x,y,Math.cos(a)*v,Math.sin(a)*v-1.5,rnd(50,100),rnd(12,24),.09); } }
+function frame(){
+  cx.clearRect(0,0,W,H);
+  if(!reduce && Math.random()<.07) add(rnd(0,W),H+20,rnd(-.3,.3),-rnd(.5,1.3),rnd(500,800),rnd(10,26),0);
+  for(let i=P.length-1;i>=0;i--){
+    const p=P[i]; p.x+=p.vx+Math.sin(p.l/30)*(p.g?0:.3); p.y+=p.vy; p.vy+=p.g; p.l--; p.a+=p.r;
+    if(p.l<=0||p.y<-40){ P.splice(i,1); continue; }
+    cx.save(); cx.globalAlpha=Math.min(1,p.l/p.m*2)*.8; cx.fillStyle=p.c; cx.font=p.s+"px serif";
+    cx.translate(p.x,p.y); cx.rotate(p.a); cx.fillText(p.ch,0,0); cx.restore();
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+document.addEventListener("pointerdown", e => burst(e.clientX, e.clientY, reduce?4:12));
+
+/* letter */
+const L = $("letter"); let typing, full = false;
+function typeLetter(){
+  L.classList.add("show"); let i = 0;
+  typing = setInterval(() => { i++; L.textContent = LETTER.slice(0,i); if(i >= LETTER.length) finish(); }, 24);
+}
+function finish(){
+  if(full) return; full = true; clearInterval(typing); L.textContent = LETTER;
+  const s = document.createElement("div"); s.className = "sig"; s.textContent = "\n" + FROM + " ♥"; L.appendChild(s);
+  burst(W/2, H/2, 30);
+  setTimeout(() => { $("more").classList.add("show"); $("more").scrollIntoView({behavior:"smooth", block:"start"}); }, 1400);
+}
+L.addEventListener("click", finish);
+$("env").addEventListener("click", e => {
+  $("env").classList.add("open"); burst(W/2, H/2, 45);
+  setTimeout(() => { $("envWrap").style.display = "none"; typeLetter(); }, 1300);
+}, {once:true});
+
+/* counters (25 July and 6 November, 2026) */
+const days = d => Math.max(0, Math.floor((Date.now() - d.getTime()) / 864e5));
+$("d1").textContent = days(new Date(2026,6,25));
+$("d2").textContent = days(new Date(2026,10,6));
+
+/* boost */
+let last = -1;
+$("boostBtn").addEventListener("click", () => {
+  let n; do { n = Math.floor(Math.random()*BOOSTS.length); } while(n === last); last = n;
+  $("msg").textContent = BOOSTS[n]; $("msg").style.setProperty("--c", COL[n % COL.length]);
+});
+
+/* gate: the letter opens only with the day they fell in love */
+const KEY = "2026-07-25";
+let tries = 0;
+function unlock(){
+  if($("dt").value === KEY){
+    burst(W/2, H/2, 40);
+    $("gate").style.display = "none";
+    $("envWrap").style.display = "flex";
+  } else {
+    tries++;
+    const g = $("gate"); g.classList.remove("shake"); void g.offsetWidth; g.classList.add("shake");
+    $("err").textContent = tries >= 2 ? "Not yet, Aloulty. Hint: it was this summer 💕" : "Hmm, that’s not the day my heart became yours. Try again 💕";
+  }
+}
+$("go").addEventListener("click", unlock);
+
+/* open when */
+document.querySelectorAll(".open-card").forEach(c => c.addEventListener("click", e => { c.classList.toggle("on"); burst(e.clientX, e.clientY, 8); }));
+</script>
+</body>
+</html>
